@@ -1,0 +1,121 @@
+/* Todo.css */
+
+/* Global body styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Todo Container */
+.todo-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+}
+
+/* Title Styling */
+.todo-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.todo-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Input field */
+.todo-input {
+    padding: 12px;
+    /* width: 100%; */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    /* margin-bottom: 15px; */
+    background-color: #f9fafb;
+}
+
+/* Button Styling */
+.todo-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    background-color: #3498db;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(52, 152, 219, 0.2);
+}
+
+/* Hover Effect for Buttons */
+.todo-button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Active Button Effect */
+.todo-button:active {
+    transform: scale(0.98);
+}
+
+/* Task List */
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10;
+}
+
+/* Todo Item */
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #e8f1f9;
+    /* background-color: #bbb; */
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Task Text */
+.todo-text {
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* Strike-through text */
+.todo-text.completed {
+    text-decoration: line-through;
+    color: #bbb;
+}
+
+/* Delete Button */
+.todo-delete {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* Delete Button Hover */
+.todo-delete:hover {
+    color: #fff;
+}

@@ -5,8 +5,10 @@ import './Todo.css';
 export default function Todo() {
     const [todos, setTodos] = useState([]);
     const [newTask, setNewTask] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const fetchTodos = async () => {
+        setLoading(true);
         const { data: { user } } = await supabase.auth.getUser();
         const { data, error } = await supabase
             .from('todos')
@@ -14,14 +16,16 @@ export default function Todo() {
             .eq('user_id', user.id);
         if (error) console.error(error);
         else setTodos(data);
+        setLoading(false);
     };
 
     useEffect(() => {
         fetchTodos();
     }, []);
 
-
     const addTodo = async () => {
+        if (!newTask.trim()) return;
+        setLoading(true);
         const { data: { user } } = await supabase.auth.getUser();
         const { error } = await supabase
             .from('todos')
@@ -31,29 +35,44 @@ export default function Todo() {
             setNewTask('');
             fetchTodos();
         }
+        setLoading(false);
     };
 
     const toggleComplete = async (id, isCompleted) => {
+        setLoading(true);
         const { error } = await supabase
             .from('todos')
             .update({ is_completed: !isCompleted })
             .eq('id', id);
         if (error) console.error(error);
         else fetchTodos();
+        setLoading(false);
     };
 
     const deleteTodo = async (id) => {
+        setLoading(true);
         const { error } = await supabase
             .from('todos')
             .delete()
             .eq('id', id);
         if (error) console.error(error);
         else fetchTodos();
+        setLoading(false);
     };
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        setUser(null);
+    };
+
 
     return (
         <div className="todo-container">
-            <h1 className="todo-title">Todo List</h1>
+            <div className='todo-main'>
+                <h1 className="todo-title">Todo List</h1>
+                <button onClick={handleLogout}>Logout</button>
+            </div>
+
             <div className='todo-div'>
                 <input
                     className="todo-input"
@@ -62,8 +81,16 @@ export default function Todo() {
                     onChange={(e) => setNewTask(e.target.value)}
                     placeholder="Add a new task"
                 />
-                <button className="todo-button" onClick={addTodo}>Add</button>
+                <button className="todo-button" onClick={addTodo} disabled={loading}>
+                    {
+                        loading ?
+                            'Submitting.....'
+                            :
+                            'Add'
+                    }
+                </button>
             </div>
+            {loading && <div className="loader"></div>}
             <ul className="todo-list">
                 {todos.map((todo) => (
                     <li key={todo.id} className="todo-item">

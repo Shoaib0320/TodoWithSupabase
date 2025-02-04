@@ -23,6 +23,12 @@ body {
     text-align: center;
 }
 
+.todo-main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* Title Styling */
 .todo-title {
     font-size: 32px;
